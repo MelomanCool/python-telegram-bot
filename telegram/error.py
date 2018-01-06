@@ -76,6 +76,10 @@ class TimedOut(NetworkError):
         super(TimedOut, self).__init__('Timed out')
 
 
+class InvalidServerResponse(NetworkError):
+    pass
+
+
 class ChatMigrated(TelegramError):
     """
     Args:

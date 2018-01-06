@@ -40,9 +40,9 @@ except ImportError:  # pragma: no cover
                   "how to properly install.")
     raise
 
-from telegram import (InputFile, TelegramError)
+from telegram import InputFile
 from telegram.error import (Unauthorized, NetworkError, TimedOut, BadRequest, ChatMigrated,
-                            RetryAfter, InvalidToken)
+                            RetryAfter, InvalidToken, InvalidServerResponse)
 
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 
@@ -149,7 +149,7 @@ class Request(object):
         try:
             data = json.loads(decoded_s)
         except ValueError:
-            raise TelegramError('Invalid server response')
+            raise InvalidServerResponse(decoded_s)
 
         if not data.get('ok'):  # pragma: no cover
             description = data.get('description')
